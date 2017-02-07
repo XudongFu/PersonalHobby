@@ -1,0 +1,9 @@
+C:\个人文件\githubProjections\PersonalHobby\扫雷\bin\Debug\扫雷.exe.config
+C:\个人文件\githubProjections\PersonalHobby\扫雷\obj\Debug\扫雷.csprojResolveAssemblyReference.cache
+C:\个人文件\githubProjections\PersonalHobby\扫雷\obj\Debug\扫雷.Main.resources
+C:\个人文件\githubProjections\PersonalHobby\扫雷\obj\Debug\扫雷.Properties.Resources.resources
+C:\个人文件\githubProjections\PersonalHobby\扫雷\obj\Debug\扫雷.csproj.GenerateResource.Cache
+C:\个人文件\githubProjections\PersonalHobby\扫雷\bin\Debug\扫雷.exe
+C:\个人文件\githubProjections\PersonalHobby\扫雷\bin\Debug\扫雷.pdb
+C:\个人文件\githubProjections\PersonalHobby\扫雷\obj\Debug\扫雷.exe
+C:\个人文件\githubProjections\PersonalHobby\扫雷\obj\Debug\扫雷.pdb
