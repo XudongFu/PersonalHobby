@@ -157,7 +157,7 @@ namespace 扫雷
                             if (boom[i, n] == has)
                                 sum++;
                         }
-                        catch (IndexOutOfRangeException e)
+                        catch (IndexOutOfRangeException)
                         {
 
                         }
