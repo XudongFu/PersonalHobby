@@ -58,6 +58,11 @@ namespace 扫雷
 
         }
 
+        public void updateView()
+        {
+            refresh(this, dig);
+        }
+
         /// <summary>
         /// 根据雷的数量，初始化随机生成雷
         /// </summary>
@@ -141,6 +146,7 @@ namespace 扫雷
             {
                 throw new Exception("参数错误");
             }
+            refresh(this, dig);
         }
 
 

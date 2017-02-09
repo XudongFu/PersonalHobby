@@ -7,3 +7,12 @@ C:\个人文件\githubProjections\PersonalHobby\扫雷\bin\Debug\扫雷.exe
 C:\个人文件\githubProjections\PersonalHobby\扫雷\bin\Debug\扫雷.pdb
 C:\个人文件\githubProjections\PersonalHobby\扫雷\obj\Debug\扫雷.exe
 C:\个人文件\githubProjections\PersonalHobby\扫雷\obj\Debug\扫雷.pdb
+E:\PersonalHobby\扫雷\bin\Debug\扫雷.exe.config
+E:\PersonalHobby\扫雷\obj\Debug\扫雷.exe
+E:\PersonalHobby\扫雷\obj\Debug\扫雷.pdb
+E:\PersonalHobby\扫雷\bin\Debug\扫雷.exe
+E:\PersonalHobby\扫雷\bin\Debug\扫雷.pdb
+E:\PersonalHobby\扫雷\obj\Debug\扫雷.csprojResolveAssemblyReference.cache
+E:\PersonalHobby\扫雷\obj\Debug\扫雷.Main.resources
+E:\PersonalHobby\扫雷\obj\Debug\扫雷.Properties.Resources.resources
+E:\PersonalHobby\扫雷\obj\Debug\扫雷.csproj.GenerateResource.Cache
