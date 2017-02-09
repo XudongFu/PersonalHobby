@@ -14,7 +14,7 @@ namespace 扫雷
         int height;
         int width;
 
-        public delegate void gameover(object send,int [,] info);
+        public delegate void gameover(object send,ref int [,] info);
 
         public gameover over;
 
@@ -60,7 +60,7 @@ namespace 扫雷
 
         public void updateView()
         {
-            refresh(this, dig);
+            refresh(this,ref dig);
         }
 
         /// <summary>
@@ -79,20 +79,21 @@ namespace 扫雷
             }
             direct = new int[width,height];
             Random ran = new Random(DateTime.Now.Millisecond);
-            while(sum!=0)
+            int temp = sum;
+            while(temp != 0)
             {
                 int w = ran.Next(0, width);
                 int h = ran.Next(0, height);
                 if (boom[w,h]==0)
                 {
                     boom[w, h] = 1;
-                    sum--;
+                    temp--;
                 }
             }
             left = width * height;
         }
 
-        void mark(int w,int h)
+        public void mark(int w,int h)
         {
             if (w < width && h < height)
             {
@@ -132,21 +133,36 @@ namespace 扫雷
         {
             if (w >= 0 && w < width && h >= 0 && h < height)
             {
+                if (dig[w, h]>=0 && dig[w,h]<=8)
+                {
+                    return;
+                }
                 if ((dig[w, h] == notDig || dig[w, h] == marked) && boom[w, h] == notHas)
                 {
                         solveDig(w,h);
                 }
                 else
                 {
+                    for (int i=0;i<width;i++)
+                    {
+                        for (int n=0;n<height;n++)
+                        {
+                            if (boom[i,n]==1)
+                            {
+                                dig[i, n] = 10;
+                            }
+                        }
+                    }
                     if (over != null)
-                        over(this,boom);
+                        over(this,ref boom);
+
                 }
             }
             else
             {
                 throw new Exception("参数错误");
             }
-            refresh(this, dig);
+            refresh(this, ref dig);
         }
 
 
@@ -171,7 +187,7 @@ namespace 扫雷
                 }
                 if(sum!=0)
                 dig[w, h] = sum;
-                //当点击的区域没有雷的时候
+                //当点击的区域周围没有雷的时候
                 else
                 {
                     expand(w,h);
@@ -189,8 +205,10 @@ namespace 扫雷
         /// <param name="h"></param>
         private void expand(int w,int h)
         {
-            if(w>=0 && w<width && h>=0 && h<height){   
-                if ((dig[w,h]==notDig || dig[w, h] == marked) && boom[w,h]==notHas){
+            if(w>=0 && w<width && h>=0 && h<height)
+            {   
+                if ((dig[w,h]==notDig || dig[w, h] == marked) && boom[w,h]==notHas)
+                {
                     int sum = 0;
                     for (int i = w - 1; i <= w + 1; i++)
                     {
@@ -204,7 +222,6 @@ namespace 扫雷
                             catch (IndexOutOfRangeException){}
                         }
                     }
-                    //
                     dig[w, h] = sum;
                     if (sum==0)
                     {
@@ -216,7 +233,6 @@ namespace 扫雷
                             }
                         }
                     }
-                
                 }
             }
         }

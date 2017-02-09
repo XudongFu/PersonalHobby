@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace 扫雷
@@ -18,6 +12,7 @@ namespace 扫雷
         int sum = 0;
         int width = 0;
         int height = 0;
+
         int picHeight = 500;
         int picWidth = 500;
         Bitmap picture;
@@ -26,7 +21,7 @@ namespace 扫雷
         Bitmap notDig;
         Bitmap boom;
         Bitmap marded;
-
+        Color digged = Color.ForestGreen;
 
         public Main()
         {
@@ -45,6 +40,7 @@ namespace 扫雷
             for (int i = 0; i < 9; i++)
             {
                 boomPics[i] = new Bitmap(w, h);
+                setBackColor(boomPics[i],digged);
                 Graphics pen = Graphics.FromImage(boomPics[i]);
                 if (i != 0)
                     pen.DrawString(i.ToString(), ziti, brush, new PointF(15, 15));
@@ -56,6 +52,15 @@ namespace 扫雷
             setBackColor(marded,Color.Blue);
             setBackColor(notDig,Color.DarkSeaGreen);
             setBackColor(picture,Color.White);
+        }
+
+        void over(object sender,ref int[,] data)
+        {
+
+            MessageBox.Show("游戏结束");
+            gameHeight.Enabled = true;
+            gameWidth.Enabled = true;
+            boomSum.Enabled = true;
         }
 
         void setBackColor(Bitmap tu,Color color)
@@ -77,50 +82,50 @@ namespace 扫雷
             usedTime.Enabled = true;
             usedTime.Tick += timeChange;
             try {
-                sum = int.Parse(textBox4.Text);
+                sum = int.Parse(boomSum.Text);
             }
             catch (Exception)
             {
-                sum = 0;
+                sum = 15;
             }
             try
             {
-                width = int.Parse(textBox3.Text);
+                width = int.Parse(gameWidth.Text);
             }
             catch (Exception)
             {
-                width = 0;
+                width = 15;
             }
             try
             {
-                height = int.Parse(textBox2.Text);
+                height = int.Parse(gameHeight.Text);
             }
             catch (Exception)
             {
-                height = 0;
+                height = 15;
             }
-            textBox2.Text = height.ToString();
-            textBox3.Text = width.ToString();
-            textBox4.Text = sum.ToString();
-            textBox2.Enabled = false;
-            textBox3.Enabled = false;
-            textBox4.Enabled = false;
-            
+            gameHeight.Text = height.ToString();
+            gameWidth.Text = width.ToString();
+            boomSum.Text = sum.ToString();
+            gameHeight.Enabled = false;
+            gameWidth.Enabled = false;
+            boomSum.Enabled = false;
+            data.SetBoomSum(sum);
+            data.init();
+            data.SetWidthHeight(width,height);
             data.updateView();
         }
 
 
-        void refresh(object send,int [,] data)
+        void refresh(object send,ref int [,] data)
         {
             int widSpace = picture.Width / width;
             int heiSpace = picture.Height / height;
-
             for (int i=0;i<width; i++)
             {
                 for (int n=0;n<height;n++)
                 {
                     Rectangle zone = new Rectangle(new Point(widSpace*i+2,n*heiSpace+2), new Size(widSpace-4,heiSpace-4));
-
                     if (data[i, n] >= 0 && data[i, n] <= 8)
                         pen.DrawImage(boomPics[data[i, n]], zone);
                     if (data[i,n]==-1)
@@ -152,19 +157,39 @@ namespace 扫雷
 
         Data data = new Data();
 
-
         private void Main_Load(object sender, EventArgs e)
         {
             initResource();
             pen = Graphics.FromImage(picture);
             pictureBox1.Image = picture;
+            pictureBox1.BackgroundImageLayout = ImageLayout.Stretch;
             data.SetWidthHeight(15, 15);
             data.SetBoomSum(15);
-            data.init();
             width = 15;
             height = 15;
             data.refresh = refresh;
+            data.over = over;
+            //雷的数量
+            boomSum.Text = 20.ToString();
+            gameWidth.Text = 15.ToString();
+            gameHeight.Text = 15.ToString();
         }
 
+        private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            int widSpace = picture.Width / width;
+            int heiSpace = picture.Height / height;
+            int w = e.X / widSpace;
+            int h = e.Y / heiSpace;
+            if (e.Button==MouseButtons.Left)
+            {
+                data.digging(w, h);
+            }
+            if (e.Button==MouseButtons.Right)
+            {
+                data.mark(w,h);
+            }
+            data.updateView();
+        }
     }
 }
